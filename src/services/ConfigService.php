@@ -43,7 +43,7 @@ class ConfigService
     }
 
     public function getTranslationDir(): string {
-        return $this->getVendorNameDir() . 'vitessecms/src/language/translations/' .$this->getLanguageLocale() .'/';
+        return $this->getVendorNameDir() . 'language/src/translations/' .$this->getLanguageLocale() .'/';
     }
 
     public function getAccountTranslationDir(): string {
