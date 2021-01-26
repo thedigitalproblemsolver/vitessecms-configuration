@@ -103,8 +103,8 @@ class DomainConfigUtil extends AbstractConfigUtil
 
     public function setTemplate(): DomainConfigUtil
     {
-        $this->templateDir = $this->systemDir.'vitessecms/vitessecms/src/mustache/template/';
-        $this->coreTemplateDir = $this->systemDir.'vitessecms/vitessecms/src/mustache/template/core/';
+        $this->templateDir = $this->systemDir.'vitessecms/mustache/src/template/';
+        $this->coreTemplateDir = $this->systemDir.'vitessecms/mustache/src/template/core/';
 
         $settingFile = $this->systemDir.'../config/template/'.$this->get('template').'/settings.ini';
         if( is_file($settingFile)):
