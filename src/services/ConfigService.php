@@ -209,4 +209,9 @@ class ConfigService
 
         return (bool) $this->config->get('ecommerce');
     }
+
+    public function getElasticSearchHost(): string
+    {
+        return $this->config->get('elasticsearch')->get('host');
+    }
 }
