@@ -5,7 +5,7 @@ namespace VitesseCms\Configuration\Utils;
 use Phalcon\Config\Adapter\Ini;
 use VitesseCms\Core\Utils\DebugUtil;
 
-class DomainConfigUtil extends AbstractConfigUtil
+class DomainConfigUtil extends Ini
 {
 
     /**
@@ -73,23 +73,28 @@ class DomainConfigUtil extends AbstractConfigUtil
      */
     protected $languageShortDefault;
 
-    public function __construct(string $filePath = '', $mode = null)
+    /**
+     * @var string
+     */
+    protected $systemDir;
+
+    public function __construct(string $basePath, $mode = null)
     {
-        $this->setBaseDirs();
         $this->host = $_SERVER['HTTP_HOST'];
         $this->movedTo = '';
+        $this->systemDir = $basePath.'vendor/';
 
-        $domainConfigFile = $this->systemDir.'../config/domain/'.$this->host.'/config.ini';
+        $domainConfigFile = $basePath.'config/domain/'.$this->host.'/config.ini';
         if (!is_file($domainConfigFile)) :
             $this->host = str_replace('www.', '', $this->host);
-            $domainConfigFile = $this->systemDir.'../config/domain/'.$this->host.'/config.ini';
+            $domainConfigFile = $basePath.'config/domain/'.$this->host.'/config.ini';
             if (is_file($domainConfigFile)) :
                 header('HTTP/1.1 301 Moved Permanently');
                 header('Location: http://'.$this->host);
             endif;
             if (DebugUtil::isDocker($_SERVER['SERVER_ADDR'] ?? '')) :
                 $this->host = str_replace('new.', '', $this->host);
-                $domainConfigFile = $this->systemDir.'../config/domain/'.$this->host.'/config.ini';
+                $domainConfigFile = $basePath.'config/domain/'.$this->host.'/config.ini';
                 if (!is_file($domainConfigFile)) :
                     throw new \RuntimeException('Geen domein aanwezig');
                 endif;
