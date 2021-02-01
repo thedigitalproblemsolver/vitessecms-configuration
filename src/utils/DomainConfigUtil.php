@@ -264,4 +264,9 @@ class DomainConfigUtil extends Ini
     {
         return $this->beanstalk->port??11300;
     }
+
+    public function getSystemDir(): string
+    {
+        return $this->systemDir;
+    }
 }
