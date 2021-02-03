@@ -2,22 +2,9 @@
 
 namespace VitesseCms\Configuration\Utils;
 
+use Phalcon\Config\Adapter\Ini;
 use VitesseCms\Core\Utils\DebugUtil;
 
-class AccountConfigUtil extends AbstractConfigUtil
+class AccountConfigUtil extends Ini
 {
-    public function __construct($filePath, $mode = null)
-    {
-        $this->setBaseDirs();
-
-        $file = 'config.ini';
-        if (DebugUtil::isDocker($_SERVER['SERVER_ADDR'] ?? '')) :
-            $file = 'config_dev.ini';
-        endif;
-
-        $accountConfigFile = $this->systemDir.'../config/account/'.$filePath.'/'.$file;
-
-        parent::__construct($accountConfigFile, $mode);
-    }
-
 }

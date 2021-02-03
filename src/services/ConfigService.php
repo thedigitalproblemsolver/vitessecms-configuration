@@ -92,7 +92,7 @@ class ConfigService
 
     public function getUploadBaseDir(): string
     {
-        return $this->getSystemDir().'../public_html/uploads/';
+        return $this->config->getSystemDir().'../public_html/uploads/';
     }
 
     public function getDomainDir(): string
@@ -108,11 +108,6 @@ class ConfigService
     public function getCacheDir(): string
     {
         return $this->config->getCacheDir();
-    }
-
-    public function getSystemDir(): string
-    {
-        return $this->config->getSystemDir();
     }
 
     public function getLanguageShort(): string
