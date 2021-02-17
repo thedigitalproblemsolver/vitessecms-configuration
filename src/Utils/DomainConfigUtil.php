@@ -108,16 +108,16 @@ class DomainConfigUtil extends Ini
 
     public function setTemplate(): DomainConfigUtil
     {
-        $this->templateDir = $this->systemDir.'vitessecms/mustache/src/template/';
-        $this->coreTemplateDir = $this->systemDir.'vitessecms/mustache/src/template/core/';
+        $this->templateDir = $this->systemDir.'vitessecms/mustache/src/Template/';
+        $this->coreTemplateDir = $this->systemDir.'vitessecms/mustache/src/Template/core/';
 
-        $settingFile = $this->systemDir.'../config/template/'.$this->get('template').'/settings.ini';
+        $settingFile = $this->systemDir.'../config/Template/'.$this->get('template').'/settings.ini';
         if( is_file($settingFile)):
-            $this->templateDir = $this->systemDir.'../config/template/'.$this->get('template').'/';
+            $this->templateDir = $this->systemDir.'../config/Template/'.$this->get('template').'/';
             $this->template = new Ini( $settingFile);
         endif;
 
-        $settingFile = $this->systemDir.'../vendor/vitessecms/mustache/template/core/settings.ini';;
+        $settingFile = $this->systemDir.'../vendor/vitessecms/mustache/Template/core/settings.ini';
         if( is_string($this->template) && is_file($settingFile)):
             $this->template = new Ini( $settingFile);
             $this->templateDir =  $this->coreTemplateDir;

@@ -43,11 +43,11 @@ class ConfigService
     }
 
     public function getTranslationDir(): string {
-        return $this->getVendorNameDir() . 'language/src/translations/' .$this->getLanguageLocale() .'/';
+        return $this->getVendorNameDir() . 'language/src/Translations/' .$this->getLanguageLocale() .'/';
     }
 
     public function getAccountTranslationDir(): string {
-        return $this->getAccountDir() . 'src/language/translations/' .$this->getLanguageLocale() .'/';
+        return $this->getAccountDir() . 'src/language/Translations/' .$this->getLanguageLocale() .'/';
     }
 
     public function getAccount(): string
