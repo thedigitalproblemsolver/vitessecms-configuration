@@ -82,19 +82,19 @@ class DomainConfigUtil extends Ini
     {
         $this->host = $_SERVER['HTTP_HOST'];
         $this->movedTo = '';
-        $this->systemDir = $basePath.'vendor/';
+        $this->systemDir = $basePath . 'vendor/';
 
-        $domainConfigFile = $basePath.'config/domain/'.$this->host.'/config.ini';
+        $domainConfigFile = $basePath . 'config/domain/' . $this->host . '/config.ini';
         if (!is_file($domainConfigFile)) :
             $this->host = str_replace('www.', '', $this->host);
-            $domainConfigFile = $basePath.'config/domain/'.$this->host.'/config.ini';
+            $domainConfigFile = $basePath . 'config/domain/' . $this->host . '/config.ini';
             if (is_file($domainConfigFile)) :
                 header('HTTP/1.1 301 Moved Permanently');
-                header('Location: http://'.$this->host);
+                header('Location: http://' . $this->host);
             endif;
             if (DebugUtil::isDocker($_SERVER['SERVER_ADDR'] ?? '')) :
                 $this->host = str_replace('new.', '', $this->host);
-                $domainConfigFile = $basePath.'config/domain/'.$this->host.'/config.ini';
+                $domainConfigFile = $basePath . 'config/domain/' . $this->host . '/config.ini';
                 if (!is_file($domainConfigFile)) :
                     throw new \RuntimeException('Geen domein aanwezig');
                 endif;
@@ -106,34 +106,14 @@ class DomainConfigUtil extends Ini
         parent::__construct($domainConfigFile, $mode);
     }
 
-    public function setTemplate(): DomainConfigUtil
-    {
-        $this->templateDir = $this->systemDir.'vitessecms/mustache/src/Template/';
-        $this->coreTemplateDir = $this->systemDir.'vitessecms/mustache/src/Template/core/';
-
-        $settingFile = $this->systemDir.'../config/Template/'.$this->get('template').'/settings.ini';
-        if( is_file($settingFile)):
-            $this->templateDir = $this->systemDir.'../config/Template/'.$this->get('template').'/';
-            $this->template = new Ini( $settingFile);
-        endif;
-
-        $settingFile = $this->systemDir.'../vendor/vitessecms/mustache/Template/core/settings.ini';
-        if( is_string($this->template) && is_file($settingFile)):
-            $this->template = new Ini( $settingFile);
-            $this->templateDir =  $this->coreTemplateDir;
-        endif;
-
-        return $this;
-    }
-
     public function setDirectories(): DomainConfigUtil
     {
-        $this->rootDir = $this->systemDir.'vitessecms/vitessecms/';
-        $this->webDir = $this->systemDir.'../public_html/';
-        $this->uploadDir = $this->systemDir.'../public_html/uploads/'.$this->get('account').'/';
-        $this->domainDir = $this->systemDir.'../config/domain/';
-        $this->accountDir = $this->systemDir.'../config/account/'.$this->get('account').'/';
-        $this->cacheDir = $this->systemDir.'../cache/'.$this->get('account').'/';
+        $this->rootDir = $this->systemDir . 'vitessecms/vitessecms/';
+        $this->webDir = $this->systemDir . '../public_html/';
+        $this->uploadDir = $this->systemDir . '../public_html/uploads/' . $this->get('account') . '/';
+        $this->domainDir = $this->systemDir . '../config/domain/';
+        $this->accountDir = $this->systemDir . '../config/account/' . $this->get('account') . '/';
+        $this->cacheDir = $this->systemDir . '../cache/' . $this->get('account') . '/';
 
         if (
             !is_dir($this->get('uploadDir'))
@@ -158,6 +138,26 @@ class DomainConfigUtil extends Ini
     public function getTemplate(): Ini
     {
         return $this->template;
+    }
+
+    public function setTemplate(): DomainConfigUtil
+    {
+        $this->templateDir = $this->systemDir . 'vitessecms/mustache/src/Template/';
+        $this->coreTemplateDir = $this->systemDir . 'vitessecms/mustache/src/Template/core/';
+
+        $settingFile = $this->systemDir . '../config/Template/' . $this->get('template') . '/settings.ini';
+        if (is_file($settingFile)):
+            $this->templateDir = $this->systemDir . '../config/Template/' . $this->get('template') . '/';
+            $this->template = new Ini($settingFile);
+        endif;
+
+        $settingFile = $this->systemDir . '../vendor/vitessecms/mustache/Template/core/settings.ini';
+        if (is_string($this->template) && is_file($settingFile)):
+            $this->template = new Ini($settingFile);
+            $this->templateDir = $this->coreTemplateDir;
+        endif;
+
+        return $this;
     }
 
     public function getTemplateDir(): string
@@ -247,7 +247,7 @@ class DomainConfigUtil extends Ini
 
     public function getMongoUri(): string
     {
-        return !empty($this->mongo->ip) ? 'mongodb://'.$this->mongo->ip.'/' : 'mongodb://127.0.0.1/';
+        return !empty($this->mongo->ip) ? 'mongodb://' . $this->mongo->ip . '/' : 'mongodb://127.0.0.1/';
     }
 
     public function renderAdminListChildren(): bool
@@ -257,12 +257,12 @@ class DomainConfigUtil extends Ini
 
     public function getBeanstalkHost(): string
     {
-        return $this->beanstalk->host??'127.0.0.1';
+        return $this->beanstalk->host ?? '127.0.0.1';
     }
 
     public function getBeanstalkPort(): int
     {
-        return $this->beanstalk->port??11300;
+        return $this->beanstalk->port ?? 11300;
     }
 
     public function getSystemDir(): string
