@@ -32,22 +32,52 @@ class ConfigService
     {
         $this->config = $config;
         $this->url = $url;
-        $this->vendorNameDir = $config->getRootDir().'../';
+        $this->vendorNameDir = $config->getRootDir() . '../';
     }
 
     public function getUploadUri(): string
     {
-        return str_replace('/'.$this->getLanguageShort().'/', '/', $this->url->getBaseUri())
-            .'uploads/'.
-            $this->config->get('account').'/';
+        return str_replace('/' . $this->getLanguageShort() . '/', '/', $this->url->getBaseUri())
+            . 'uploads/' .
+            $this->config->get('account') . '/';
     }
 
-    public function getTranslationDir(): string {
-        return $this->getVendorNameDir() . 'language/src/translations/' .$this->getLanguageLocale() .'/';
+    public function getLanguageShort(): string
+    {
+        if ($this->language !== null) :
+            return $this->language->getShortCode();
+        endif;
+
+        return $this->config->getLanguageShort();
     }
 
-    public function getAccountTranslationDir(): string {
-        return $this->getAccountDir() . 'src/language/translations/' .$this->getLanguageLocale() .'/';
+    public function getTranslationDir(): string
+    {
+        return $this->getVendorNameDir() . 'language/src/Translations/' . $this->getLanguageLocale() . '/';
+    }
+
+    public function getVendorNameDir(): string
+    {
+        return $this->vendorNameDir;
+    }
+
+    public function getLanguageLocale(): string
+    {
+        if ($this->language !== null) :
+            return $this->language->getLocale();
+        endif;
+
+        return $this->config->getLanguageLocale();
+    }
+
+    public function getAccountTranslationDir(): string
+    {
+        return $this->getAccountDir() . 'src/language/Translations/' . $this->getLanguageLocale() . '/';
+    }
+
+    public function getAccountDir(): string
+    {
+        return $this->config->getAccountDir();
     }
 
     public function getAccount(): string
@@ -70,19 +100,14 @@ class ConfigService
         return $this->config->getRootDir();
     }
 
-    public function getVendorNameDir(): string
+    public function getAssetsDir(): string
     {
-        return $this->vendorNameDir;
+        return $this->getWebDir() . 'assets/' . $this->config->get('account') . '/';
     }
 
     public function getWebDir(): string
     {
         return $this->config->getWebDir();
-    }
-
-    public function getAssetsDir(): string
-    {
-        return $this->getWebDir().'assets/'.$this->config->get('account').'/';
     }
 
     public function getUploadDir(): string
@@ -92,7 +117,7 @@ class ConfigService
 
     public function getUploadBaseDir(): string
     {
-        return $this->config->getSystemDir().'../public_html/uploads/';
+        return $this->config->getSystemDir() . '../public_html/uploads/';
     }
 
     public function getDomainDir(): string
@@ -100,32 +125,9 @@ class ConfigService
         return $this->config->getDomainDir();
     }
 
-    public function getAccountDir(): string
-    {
-        return $this->config->getAccountDir();
-    }
-
     public function getCacheDir(): string
     {
         return $this->config->getCacheDir();
-    }
-
-    public function getLanguageShort(): string
-    {
-        if ($this->language !== null) :
-            return $this->language->getShortCode();
-        endif;
-
-        return $this->config->getLanguageShort();
-    }
-
-    public function getLanguageLocale(): string
-    {
-        if ($this->language !== null) :
-            return $this->language->getLocale();
-        endif;
-
-        return $this->config->getLanguageLocale();
     }
 
     public function getLanguageShortDefault(): ?string
@@ -144,16 +146,16 @@ class ConfigService
         return $this->config->getHost();
     }
 
+    public function getLanguage(): Language
+    {
+        return $this->language;
+    }
+
     public function setLanguage(Language $language): ConfigService
     {
         $this->language = $language;
 
         return $this;
-    }
-
-    public function getLanguage(): Language
-    {
-        return $this->language;
     }
 
     public function hasMovedTo(): bool
@@ -193,16 +195,16 @@ class ConfigService
 
     public function getTemplatePositions(): array
     {
-        return (array) $this->config->getTemplate()->get('positions');
+        return (array)$this->config->getTemplate()->get('positions');
     }
 
     public function isEcommerce(): bool
     {
-        if($this->config->get('ecommerce') === null ):
+        if ($this->config->get('ecommerce') === null):
             return false;
         endif;
 
-        return (bool) $this->config->get('ecommerce');
+        return (bool)$this->config->get('ecommerce');
     }
 
     public function getElasticSearchHost(): string
