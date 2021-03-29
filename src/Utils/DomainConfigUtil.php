@@ -151,7 +151,7 @@ class DomainConfigUtil extends Ini
             $this->template = new Ini($settingFile);
         endif;
 
-        $settingFile = $this->systemDir . '../vendor/vitessecms/mustache/Template/core/settings.ini';
+        $settingFile = $this->systemDir . 'vitessecms/mustache/src/Template/core/settings.ini';
         if (is_string($this->template) && is_file($settingFile)):
             $this->template = new Ini($settingFile);
             $this->templateDir = $this->coreTemplateDir;
