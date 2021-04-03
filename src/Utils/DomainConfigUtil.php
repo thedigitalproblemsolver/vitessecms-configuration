@@ -4,6 +4,7 @@ namespace VitesseCms\Configuration\Utils;
 
 use Phalcon\Config\Adapter\Ini;
 use VitesseCms\Core\Utils\DebugUtil;
+use VitesseCms\Core\Utils\DirectoryUtil;
 
 class DomainConfigUtil extends Ini
 {
@@ -110,26 +111,21 @@ class DomainConfigUtil extends Ini
     {
         $this->rootDir = $this->systemDir . 'vitessecms/vitessecms/';
         $this->webDir = $this->systemDir . '../public_html/';
-        $this->uploadDir = $this->systemDir . '../public_html/uploads/' . $this->get('account') . '/';
+        $this->uploadDir = $this->systemDir . '../public_html/uploads/' . $this->getAccount() . '/';
         $this->domainDir = $this->systemDir . '../config/domain/';
-        $this->accountDir = $this->systemDir . '../config/account/' . $this->get('account') . '/';
-        $this->cacheDir = $this->systemDir . '../cache/' . $this->get('account') . '/';
+        $this->accountDir = $this->systemDir . '../config/account/' . $this->getAccount() . '/';
+        $this->cacheDir = $this->systemDir . '../cache/' . $this->getAccount() . '/';
 
-        if (
-            !is_dir($this->get('uploadDir'))
-            && !mkdir($this->get('uploadDir'))
-            && !is_dir($this->get('uploadDir'))
-        ) :
+        if (!DirectoryUtil::exists($this->getUploadDir(), true)) :
             throw new \RuntimeException(sprintf('Directory "%s" was not created',
-                $this->get('uploadDir')));
+                $this->getUploadDir()
+            ));
         endif;
 
-        if (!is_dir($this->get('cacheDir'))
-            && !mkdir($this->get('cacheDir'))
-            && !is_dir($this->get('cacheDir'))
-        ) :
+        if (!DirectoryUtil::exists($this->getCacheDir(), true)) :
             throw new \RuntimeException(sprintf('Directory "%s" was not created',
-                $this->get('cacheDir')));
+                $this->getCacheDir()
+            ));
         endif;
 
         return $this;
