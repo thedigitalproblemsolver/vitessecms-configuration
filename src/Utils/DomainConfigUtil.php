@@ -93,7 +93,7 @@ class DomainConfigUtil extends Ini
                 header('HTTP/1.1 301 Moved Permanently');
                 header('Location: http://' . $this->host);
             endif;
-            if (DebugUtil::isDocker($_SERVER['SERVER_ADDR'] ?? '')) :
+            if (DebugUtil::isDev()) :
                 $this->host = str_replace('new.', '', $this->host);
                 $domainConfigFile = $basePath . 'config/domain/' . $this->host . '/config.ini';
                 if (!is_file($domainConfigFile)) :
