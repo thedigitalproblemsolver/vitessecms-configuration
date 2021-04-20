@@ -6,7 +6,7 @@ use VitesseCms\Configuration\Utils\DomainConfigUtil;
 use VitesseCms\Core\Services\UrlService;
 use VitesseCms\Language\Models\Language;
 
-class ConfigService
+class ConfigService implements ConfigServiceInterface
 {
     /**
      * @var DomainConfigUtil
