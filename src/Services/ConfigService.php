@@ -80,6 +80,11 @@ class ConfigService implements ConfigServiceInterface
         return $this->config->getAccountDir();
     }
 
+    public function getAccountTemplateDir(): string
+    {
+        return $this->config->getAccountDir().'Template/';
+    }
+
     public function getAccount(): string
     {
         return $this->config->getAccount();
