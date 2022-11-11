@@ -79,7 +79,7 @@ class DomainConfigUtil extends Ini
      */
     protected $systemDir;
 
-    public function __construct(string $basePath, $mode = null)
+    public function __construct(string $basePath, int $mode = 1)
     {
         $this->host = $_SERVER['HTTP_HOST'];
         $this->movedTo = '';
