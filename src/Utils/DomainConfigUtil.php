@@ -3,6 +3,7 @@
 namespace VitesseCms\Configuration\Utils;
 
 use Phalcon\Config\Adapter\Ini;
+use Phalcon\Config\Config;
 use VitesseCms\Core\Utils\DebugUtil;
 use VitesseCms\Core\Utils\DirectoryUtil;
 
@@ -60,7 +61,7 @@ class DomainConfigUtil extends Ini
         return $this;
     }
 
-    public function getTemplate(): Ini
+    public function getTemplate(): Config
     {
         return $this->template;
     }
