@@ -200,7 +200,7 @@ class ConfigService implements ConfigServiceInterface
 
     public function getTemplatePositions(): array
     {
-        return (array)$this->config->getTemplate()->get('positions');
+        return $this->config->getTemplate()->get('positions')->toArray();
     }
 
     public function isEcommerce(): bool

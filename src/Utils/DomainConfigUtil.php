@@ -3,83 +3,13 @@
 namespace VitesseCms\Configuration\Utils;
 
 use Phalcon\Config\Adapter\Ini;
+use Phalcon\Config\Config;
 use VitesseCms\Core\Utils\DebugUtil;
 use VitesseCms\Core\Utils\DirectoryUtil;
 
 class DomainConfigUtil extends Ini
 {
-
-    /**
-     * @var Ini
-     */
-    protected $template;
-
-    /**
-     * @var string
-     */
-    protected $templateDir;
-
-    /**
-     * @var string
-     */
-    protected $coreTemplateDir;
-
-    /**
-     * @var string
-     */
-    protected $rootDir;
-
-    /**
-     * @var string
-     */
-    protected $webDir;
-
-    /**
-     * @var string
-     */
-    protected $uploadDir;
-
-    /**
-     * @var string
-     */
-    protected $domainDir;
-
-    /**
-     * @var string
-     */
-    protected $accountDir;
-
-    /**
-     * @var string
-     */
-    protected $cacheDir;
-
-    /**
-     * @var \stdClass
-     */
-    protected $language;
-
-    /**
-     * @var string
-     */
-    protected $host;
-
-    /**
-     * @var string
-     */
-    protected $movedTo;
-
-    /**
-     * @var string
-     */
-    protected $languageShortDefault;
-
-    /**
-     * @var string
-     */
-    protected $systemDir;
-
-    public function __construct(string $basePath, $mode = null)
+    public function __construct(string $basePath, int $mode = 1)
     {
         $this->host = $_SERVER['HTTP_HOST'];
         $this->movedTo = '';
@@ -131,7 +61,7 @@ class DomainConfigUtil extends Ini
         return $this;
     }
 
-    public function getTemplate(): Ini
+    public function getTemplate(): Config
     {
         return $this->template;
     }
