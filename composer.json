@@ -20,7 +20,7 @@
   "require": {
     "php": ">=8.1",
     "ext-phalcon": "5.1.4",
-    "vitessecms/language": "~0.3.1",
-    "vitessecms/core": "~0.4.0"
+    "vitessecms/language": "~0.3.2",
+    "vitessecms/core": "~0.4.1"
   }
 }
