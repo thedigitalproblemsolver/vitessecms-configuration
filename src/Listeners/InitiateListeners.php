@@ -10,6 +10,6 @@ class InitiateListeners implements InitiateListenersInterface
 {
     public static function setListeners(InjectableInterface $di): void
     {
-        $di->eventsManager->attach(ConfigurationEnum::ATTACH_SERVICE_LISTENER, new ServiceListener($di->configuration));
+        $di->eventsManager->attach(ConfigurationEnum::SERVICE_LISTENER->value, new ServiceListener($di->configuration));
     }
 }
