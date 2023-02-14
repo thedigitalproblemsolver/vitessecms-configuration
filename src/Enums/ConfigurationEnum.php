@@ -4,7 +4,8 @@ namespace VitesseCms\Configuration\Enums;
 
 use VitesseCms\Core\AbstractEnum;
 
-class ConfigurationEnum extends AbstractEnum
+enum ConfigurationEnum: string
 {
-    public const ATTACH_SERVICE_LISTENER = 'configService:attach';
+    case SERVICE_LISTENER = 'configService';
+    case ATTACH_SERVICE_LISTENER = 'configService:attach';
 }
