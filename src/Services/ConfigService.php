@@ -42,6 +42,11 @@ class ConfigService implements ConfigServiceInterface
             $this->config->get('account') . '/';
     }
 
+    public function getBaseUri(): string
+    {
+        $this->url->getBaseUri();
+    }
+
     public function getLanguageShort(): string
     {
         if ($this->language !== null) :
