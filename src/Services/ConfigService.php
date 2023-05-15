@@ -207,9 +207,15 @@ class ConfigService implements ConfigServiceInterface
     {
         return $this->config->getTemplate()->get('positions')->toArray();
     }
+    
     public function getTemplateEmbeddedPositions(): array
     {
         return $this->config->getTemplate()->get('embedded_positions')->toArray();
+    }
+
+    public function getTemplateAdminPositions(): array
+    {
+        return $this->config->getTemplate()->get('admin_positions')->toArray();
     }
 
     public function isEcommerce(): bool
