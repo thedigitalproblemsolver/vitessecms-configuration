@@ -1,9 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace VitesseCms\Configuration\Utils;
 
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Config\Config;
+use RuntimeException;
 use VitesseCms\Core\Utils\DebugUtil;
 use VitesseCms\Core\Utils\DirectoryUtil;
 
@@ -27,10 +29,10 @@ class DomainConfigUtil extends Ini
                 $this->host = str_replace('new.', '', $this->host);
                 $domainConfigFile = $basePath . 'config/domain/' . $this->host . '/config.ini';
                 if (!is_file($domainConfigFile)) :
-                    throw new \RuntimeException('Geen domein aanwezig');
+                    throw new RuntimeException('Geen domein aanwezig');
                 endif;
             else :
-                throw new \RuntimeException('Geen domein aanwezig');
+                throw new RuntimeException('Geen domein aanwezig');
             endif;
         endif;
 
@@ -47,15 +49,21 @@ class DomainConfigUtil extends Ini
         $this->cacheDir = $this->systemDir . '../cache/' . $this->getAccount() . '/';
 
         if (!DirectoryUtil::exists($this->getUploadDir(), true)) :
-            throw new \RuntimeException(sprintf('Directory "%s" was not created',
-                $this->getUploadDir()
-            ));
+            throw new RuntimeException(
+                sprintf(
+                    'Directory "%s" was not created',
+                    $this->getUploadDir()
+                )
+            );
         endif;
 
         if (!DirectoryUtil::exists($this->getCacheDir(), true)) :
-            throw new \RuntimeException(sprintf('Directory "%s" was not created',
-                $this->getCacheDir()
-            ));
+            throw new RuntimeException(
+                sprintf(
+                    'Directory "%s" was not created',
+                    $this->getCacheDir()
+                )
+            );
         endif;
 
         return $this;
