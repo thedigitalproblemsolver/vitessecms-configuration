@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VitesseCms\Configuration\Services;
 
@@ -6,33 +8,19 @@ use VitesseCms\Configuration\Utils\DomainConfigUtil;
 use VitesseCms\Core\Services\UrlService;
 use VitesseCms\Language\Models\Language;
 
-class ConfigService implements ConfigServiceInterface
+final class ConfigService implements ConfigServiceInterface
 {
-    /**
-     * @var DomainConfigUtil
-     */
-    protected $config;
+    private ?Language $language = null;
+    private string $vendorNameDir;
 
-    /**
-     * @var UrlService
-     */
-    protected $url;
-
-    /**
-     * @var Language
-     */
-    protected $language;
-
-    /**
-     * @var string
-     */
-    protected $vendorNameDir;
-
-    public function __construct(DomainConfigUtil $config, UrlService $url)
+    public function __construct(private readonly DomainConfigUtil $config, private readonly UrlService $url)
     {
-        $this->config = $config;
-        $this->url = $url;
         $this->vendorNameDir = $config->getRootDir() . '../';
+    }
+
+    public function getRootDir(): string
+    {
+        return $this->config->getRootDir();
     }
 
     public function getUploadUri(): string
@@ -42,11 +30,6 @@ class ConfigService implements ConfigServiceInterface
             $this->config->get('account') . '/';
     }
 
-    public function getBaseUri(): string
-    {
-        $this->url->getBaseUri();
-    }
-
     public function getLanguageShort(): string
     {
         if ($this->language !== null) :
@@ -54,6 +37,11 @@ class ConfigService implements ConfigServiceInterface
         endif;
 
         return $this->config->getLanguageShort();
+    }
+
+    public function getBaseUri(): string
+    {
+        $this->url->getBaseUri();
     }
 
     public function getTranslationDir(): string
@@ -87,7 +75,7 @@ class ConfigService implements ConfigServiceInterface
 
     public function getAccountTemplateDir(): string
     {
-        return $this->config->getAccountDir().'Template/';
+        return $this->config->getAccountDir() . 'Template/';
     }
 
     public function getAccount(): string
@@ -103,11 +91,6 @@ class ConfigService implements ConfigServiceInterface
     public function getCoreTemplateDir(): string
     {
         return $this->config->getCoreTemplateDir();
-    }
-
-    public function getRootDir(): string
-    {
-        return $this->config->getRootDir();
     }
 
     public function getAssetsDir(): string
@@ -207,7 +190,7 @@ class ConfigService implements ConfigServiceInterface
     {
         return $this->config->getTemplate()->get('positions')->toArray();
     }
-    
+
     public function getTemplateEmbeddedPositions(): array
     {
         return $this->config->getTemplate()->get('embedded_positions')->toArray();
@@ -230,5 +213,10 @@ class ConfigService implements ConfigServiceInterface
     public function getElasticSearchHost(): string
     {
         return $this->config->get('elasticsearch')->get('host');
+    }
+
+    public function hideAsideMenu(): bool
+    {
+        return (bool)$this->config->get('hideAsideMenu');
     }
 }
