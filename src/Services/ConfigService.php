@@ -41,7 +41,7 @@ final class ConfigService implements ConfigServiceInterface
 
     public function getBaseUri(): string
     {
-        $this->url->getBaseUri();
+        return $this->url->getBaseUri();
     }
 
     public function getTranslationDir(): string
