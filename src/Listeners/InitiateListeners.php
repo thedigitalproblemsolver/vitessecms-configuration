@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace VitesseCms\Configuration\Listeners;
 
@@ -8,8 +9,11 @@ use VitesseCms\Core\Interfaces\InjectableInterface;
 
 class InitiateListeners implements InitiateListenersInterface
 {
-    public static function setListeners(InjectableInterface $di): void
+    public static function setListeners(InjectableInterface $injectable): void
     {
-        $di->eventsManager->attach(ConfigurationEnum::SERVICE_LISTENER->value, new ServiceListener($di->configuration));
+        $injectable->eventsManager->attach(
+            ConfigurationEnum::SERVICE_LISTENER->value,
+            new ServiceListener($injectable->configuration)
+        );
     }
 }
